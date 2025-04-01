@@ -2,15 +2,21 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import DeloitteLogo from "@/components/Logo";
-import { UserCircle, Bell, LogOut, Search, X } from "lucide-react";
+import { UserCircle, Bell, LogOut, Search, X, Menu } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 
 interface DashboardHeaderProps {
   employeeId: string;
+  toggleSidebar?: () => void;
+  showSidebar?: boolean;
 }
 
-const DashboardHeader: React.FC<DashboardHeaderProps> = ({ employeeId }) => {
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({ 
+  employeeId, 
+  toggleSidebar, 
+  showSidebar 
+}) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -128,17 +134,19 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ employeeId }) => {
             </div>
           )}
         </div>
-
-
-        {/* <Button
-          variant="ghost"
-          
-          className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm"
-        > */}
-          {/*<LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
-          <span className="hidden sm:inline">Log out</span>
-          */}
-        {/* </Button> */}
+            {/* Toggle Sidebar Button */}
+            {toggleSidebar && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleSidebar}
+            className="mr-2"
+            aria-label={showSidebar ? "Close sidebar" : "Open sidebar"}
+            aria-expanded={showSidebar}
+          >
+            {showSidebar ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Menu className="h-4 w-4 sm:h-5 sm:w-5" />}
+          </Button>
+        )}
       </div>
     </header>
   );

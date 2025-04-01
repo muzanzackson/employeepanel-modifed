@@ -50,15 +50,20 @@ const EmployeeDashboard = () => {
     }
   }, [activeTab]);
 
+  // Toggle sidebar visibility
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="min-h-screen bg-background text-foreground flex flex-col"
     >
-      <DashboardHeader employeeId="EMP003" />
+      <DashboardHeader employeeId="EMP003" toggleSidebar={toggleSidebar} showSidebar={showSidebar} />
 
-      {/* Mobile Navigation Toggle Button */}
+      {/* Mobile Navigation Toggle Button - Now handled in header */}
       {isMobile && (
         <button
           onClick={() => setShowSidebar(!showSidebar)}
